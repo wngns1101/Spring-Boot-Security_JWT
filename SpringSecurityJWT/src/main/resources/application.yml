@@ -1,6 +1,9 @@
 spring:
+  security:
+    user:
+      password: 1
   profiles:
-    include: API-KEY
+    include: JWT
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
