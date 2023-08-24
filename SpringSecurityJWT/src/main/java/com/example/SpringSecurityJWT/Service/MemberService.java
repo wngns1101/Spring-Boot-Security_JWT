@@ -39,10 +39,13 @@ public class MemberService{
     public ResponseSignIn signIn(String id, String pw) {
         String token = null;
         Member member = memberRepository.searchById(id);
-        if (passwordEncoder.matches(passwordEncoder.encode(pw), member.getPw())) {
+        System.out.println(pw);
+        System.out.println(member.getPw());
+        if (passwordEncoder.matches(pw, member.getPw())) {
             token = tokenProvider.createToken(String.format("%s:%s", member.getId(), member.getPw()));
+            System.out.println(token);
         } else {
-            new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
         return new ResponseSignIn(member.getId(), member.getPw(), token);
     }

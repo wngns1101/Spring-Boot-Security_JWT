@@ -36,4 +36,12 @@ public class TokenProvider {
                 .compact(); // JWT 토큰 생성
     }
 
+    public String validateTokenAndGetSubject(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }
